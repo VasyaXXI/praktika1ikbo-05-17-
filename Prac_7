@@ -1,0 +1,45 @@
+main.java
+
+import java.util.Scanner;
+import java.util.ArrayDeque;
+
+public class main {
+    public static String game(int cards1[], int cards2[]) {
+        ArrayDeque<Integer> first = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> second = new ArrayDeque<Integer>();
+        for (int i = 0; i < cards1.length; i++) {
+            first.addLast(cards1[i]);
+            second.addLast(cards2[i]);
+        }
+        for (int i = 0; i < 106; i++) {
+            int card1 = first.pollFirst();
+            int card2 = second.pollFirst();
+            if (((card1 > card2) && card1 != 9 && card2 != 0) || (card2 == 9 && card1 == 0)) {
+                first.addLast(card1);
+                first.addLast(card2);
+            } else {
+                second.addLast(card1);
+                second.addLast(card2);
+            }
+            if (first.isEmpty())
+            return "second "+(i+1);
+
+            if (second.isEmpty())
+                return "first "+(i+1);
+        }
+        return "botva";
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int cards1[] = new int[5];
+        int cards2[] = new int[10];
+        for (int i = 0; i < 5; i++) {
+            cards1[i] = in.nextInt();
+        }
+        for (int i = 0; i < 5; i++) {
+            cards2[i] = in.nextInt();
+        }
+        System.out.println(game(cards1, cards2));
+    }
+}
